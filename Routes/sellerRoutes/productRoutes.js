@@ -10,22 +10,15 @@ router
     .route('/products')
     .post(async (req, res) => {
         const { _id } = req.body;
-
-        await Seller
-            .findById(_id)
-            .then(async (seller) => {
-                await Product
-                    .find({
-                        '_id': { $in: seller["products"] }
-                    }, { _id: 0, __v: 0 })
-                    .then((products) => {
-                        res.json({
-                            status: 'success',
-                            message: 'All products for the seller',
-                            length: products.length,
-                            products: products
-                        })
-                    })
+        await Product
+            .find({ ownedBy: _id })
+            .then((products) => {
+                res.json({
+                    status: 'success',
+                    message: 'All products for the seller',
+                    length: products.length,
+                    products: products
+                })
             })
     })
 

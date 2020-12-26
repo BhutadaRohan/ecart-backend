@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Seller = require('./sellerModel');
+const { ObjectId } = mongoose.Schema.Types
 
 const productSchema = new mongoose.Schema({
 
@@ -27,8 +29,9 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
 
-    sellername: {
-        type: String,
+    ownedBy: {
+        type: ObjectId,
+        ref: Seller,
         required: true
     }
 });

@@ -10,7 +10,7 @@ router
     .get(async (req, res) => {
 
         await Product
-            .find({}, { _id: 0, __v: 0 })
+            .find({}, { __v: 0 })
             .then((products) => {
                 res.json({
                     status: "success",

@@ -25,10 +25,6 @@ const sellerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    products: {
-        type: Array,
-        default: []
-    }
 });
 
 const Seller = mongoose.model('Seller', sellerSchema);

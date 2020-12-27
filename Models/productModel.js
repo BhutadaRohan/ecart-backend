@@ -34,11 +34,6 @@ const productSchema = new mongoose.Schema({
         ref: Seller,
         required: true
     },
-
-    sellername: {
-        type: String,
-        required: true
-    }
 });
 
 const Product = mongoose.model('Product', productSchema);

@@ -7,11 +7,13 @@ const router = express.Router();
 
 //get all products for the seller
 router
-    .route('/products')
-    .post(async (req, res) => {
-        const { _id } = req.body;
+    .route('/products/:id')
+    .get(async (req, res) => {
+        const { id } = req.params;
+        console.log(id)
         await Product
-            .find({ ownedBy: _id })
+            .find({ ownedBy: id }, { __v: 0 })
+            .populate('ownedBy', { password: 0, __v: 0 })
             .then((products) => {
                 res.json({
                     status: 'success',

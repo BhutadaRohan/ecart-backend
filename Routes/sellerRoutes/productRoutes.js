@@ -44,23 +44,15 @@ router
                 discount: discount,
                 highlights: highlights,
                 productdesc: productdesc,
-                sellername: sellername["shopname"]
+                sellername: sellername["shopname"],
+                ownedBy: _id
             })
-            .then(async (product) => {
-                await Seller
-                    .findByIdAndUpdate(_id,
-                        { $push: { "products": String(product._id) } },
-                        { new: true })
-                    .then((seller) => {
-                        res.json({
-                            status: 'success',
-                            message: 'product added succesfully',
-                            seller: seller
-                        })
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+            .then((product) => {
+                res.json({
+                    status: 'success',
+                    message: 'product added succesfully',
+                    product: product
+                })
             })
             .catch((err) => {
                 console.log(err)
@@ -73,30 +65,18 @@ router
     .route('/deleteproduct')
     .post(async (req, res) => {
 
-        const { _id, productid } = req.body
+        const { productid } = req.body
 
-        await Seller
-            .findByIdAndUpdate(
-                _id,
-                { $pull: { products: productid } },
-                { new: true }
-            )
-            .then(async (seller) => {
-                await Product
-                    .findByIdAndDelete(productid)
-                    .then(async () => {
-                        res.json({
-                            status: 'success',
-                            message: 'product deleted succesfully',
-                            seller: seller
-                        })
-                    })
-                    .catch((err) => { console.log(err) })
+        await Product
+            .findByIdAndDelete(productid)
+            .then(() => {
+                res.json({
+                    status: 'success',
+                    message: 'product deleted succesfully'
+                })
+            })
+            .catch((err) => { console.log(err) })
 
-            })
-            .catch((err) => {
-                console.log(err)
-            })
     })
 
 //Modify the product from product collection and also from seller

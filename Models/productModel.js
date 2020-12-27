@@ -33,6 +33,11 @@ const productSchema = new mongoose.Schema({
         type: ObjectId,
         ref: Seller,
         required: true
+    },
+
+    sellername: {
+        type: String,
+        required: true
     }
 });
 

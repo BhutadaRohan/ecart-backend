@@ -6,7 +6,7 @@ const sellerRoutes = require('./Routes/sellerRoutes/authRoute');
 const productRoutes = require('./Routes/sellerRoutes/productRoutes');
 const productroutes = require('./Routes/buyerRoutes/productRoutes');
 
-/////////// config file used to save db password and port
+// config file used to save db password and port
 dotenv.config({ path: "./config.env" })
 
 const PORT = process.env.PORT || 5000
@@ -19,7 +19,7 @@ const options = {
     useUnifiedTopology: true
 }
 
-/////////// To connect to DB
+// To connect to DB
 mongoose
     .connect(DB, options)
     .then(() =>
@@ -39,9 +39,9 @@ app.get('/', (req, res) => {
     });
 })
 
-app.use('/users', userRoutes, productroutes)
+app.use('/user', userRoutes, productroutes)
 app.use('/seller', sellerRoutes, productRoutes)
 
 app.listen(PORT, () => {
-    console.log("server started ...")
+    console.log(`Server started on port ${PORT}`)
 });

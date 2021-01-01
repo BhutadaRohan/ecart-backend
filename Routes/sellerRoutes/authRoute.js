@@ -55,12 +55,19 @@ router
                             address: address,
                             password: hashPassword
                         })
-                        .then(() => {
+                        .then((user) => {
                             return res
                                 .status(201)
                                 .json({
                                     status: "success",
-                                    message: "User created succesfully!"
+                                    message: "User created succesfully!",
+                                    user: {
+                                        email: email,
+                                        shopname: user.shopname,
+                                        mobileno: user.mobileno,
+                                        address: user.address,
+                                        _id: user._id,
+                                    }
                                 })
                         })
                         .catch((err) => {

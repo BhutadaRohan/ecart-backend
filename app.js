@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
     });
 })
 
-app.use('/user', userRoutes, productroutes)
+app.use('/buyer', userRoutes, productroutes)
 app.use('/seller', sellerRoutes, productRoutes)
 
 app.listen(PORT, () => {

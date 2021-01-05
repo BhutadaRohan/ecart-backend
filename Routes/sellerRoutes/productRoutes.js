@@ -1,6 +1,5 @@
 const express = require("express")
 
-const Seller = require("../../Models/sellerModel")
 const Product = require("../../Models/productModel");
 
 const router = express.Router();
@@ -28,32 +27,22 @@ router
 router
     .route('/addproduct')
     .post(async (req, res) => {
-        const { _id, name, mrp, discount, highlights, productdesc } = req.body
+        const { _id, name, price, discount, highlights, description, category } = req.body
 
-        if (!name || !mrp || !highlights || !productdesc) {
+        if (!name || !price || !highlights || !description || !category) {
             res.json({
                 status: 'failed',
                 message: 'All fields are required'
             })
         }
 
-        const sellername = await Seller.findById(_id);
-
         await Product
-            .create({
-                name: name,
-                mrp: mrp,
-                discount: discount,
-                highlights: highlights,
-                productdesc: productdesc,
-                sellername: sellername["shopname"],
-                ownedBy: _id
-            })
+            .create({ name, price, discount, highlights, description, category, ownedBy: _id })
             .then((product) => {
                 res.json({
                     status: 'success',
                     message: 'product added succesfully',
-                    product: product
+                    product
                 })
             })
             .catch((err) => {

@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 
-    mrp: {
+    price: {
         type: Number,
         required: true,
     },
@@ -24,9 +24,14 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
 
-    productdesc: {
+    description: {
         type: Object,
         required: true,
+    },
+
+    category: {
+        type: String,
+        required: true
     },
 
     ownedBy: {

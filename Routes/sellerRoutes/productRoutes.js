@@ -6,10 +6,9 @@ const router = express.Router();
 
 //get all products for the seller
 router
-    .route('/products/:id')
+    .route('/:id/products')
     .get(async (req, res) => {
         const { id } = req.params;
-        console.log(id)
         await Product
             .find({ ownedBy: id }, { __v: 0 })
             .populate('ownedBy', { password: 0, __v: 0 })
@@ -27,9 +26,9 @@ router
 router
     .route('/addproduct')
     .post(async (req, res) => {
-        const { _id, name, price, discount, highlights, description, category } = req.body
+        const { name, price, discount, highlights, description, category, quantity, ownedBy } = req.body
 
-        if (!name || !price || !highlights || !description || !category) {
+        if (!name || !price || !highlights || !description || !category || !quantity || !ownedBy) {
             res.json({
                 status: 'failed',
                 message: 'All fields are required'
@@ -37,7 +36,7 @@ router
         }
 
         await Product
-            .create({ name, price, discount, highlights, description, category, ownedBy: _id })
+            .create({ name, price, discount, highlights, description, category, ownedBy, quantity })
             .then((product) => {
                 res.json({
                     status: 'success',
@@ -56,10 +55,10 @@ router
     .route('/deleteproduct')
     .post(async (req, res) => {
 
-        const { productid } = req.body
+        const { productId } = req.body
 
         await Product
-            .findByIdAndDelete(productid)
+            .findByIdAndDelete(productId)
             .then(() => {
                 res.json({
                     status: 'success',
@@ -72,17 +71,17 @@ router
 
 //Modify the product from product collection and also from seller
 router
-    .route('/modifyproduct')
+    .route('/updateproduct')
     .post(async (req, res) => {
-        const { id, newproduct } = req.body;
-
+        const { _id, newProduct } = req.body;
+        console.log(_id, newProduct)
         await Product
-            .findByIdAndUpdate(id, newproduct, { new: true })
+            .findByIdAndUpdate(_id, newProduct, { new: true })
             .then((product) => {
                 res.json({
                     status: 'success',
                     message: 'Product Information updated succesfully',
-                    product: product
+                    product
                 })
             })
             .catch((err) => {

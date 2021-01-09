@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoutes = require('./Routes/buyerRoutes/authRoutes');
 const sellerRoutes = require('./Routes/sellerRoutes/authRoute');
-const productRoutes = require('./Routes/sellerRoutes/productRoutes');
-const productroutes = require('./Routes/buyerRoutes/productRoutes');
+const sellerProductRoutes = require('./Routes/sellerRoutes/productRoutes');
+const buyerProductRoutes = require('./Routes/buyerRoutes/productRoutes');
 
 // config file used to save db password and port
 dotenv.config({ path: "./config.env" })
@@ -39,8 +39,8 @@ app.get('/', (req, res) => {
     });
 })
 
-app.use('/buyer', userRoutes, productroutes)
-app.use('/seller', sellerRoutes, productRoutes)
+app.use('/buyer', userRoutes, buyerProductRoutes)
+app.use('/seller', sellerRoutes, sellerProductRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`)

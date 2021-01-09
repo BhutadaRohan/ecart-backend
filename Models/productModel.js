@@ -3,42 +3,38 @@ const Seller = require('./sellerModel');
 const { ObjectId } = mongoose.Schema.Types
 
 const productSchema = new mongoose.Schema({
-
     name: {
         type: String,
         required: true
     },
-
-    img: {
+    image: {
         type: String,
-        default: 'Product Image'
+        default: 'https://thefinanser.com/wp-content/uploads/2019/10/Product.png'
     },
-
     price: {
         type: Number,
         required: true,
     },
-
     discount: {
         type: Number,
         default: 0
     },
-
     highlights: {
-        type: Array,
+        type: [String],
         required: true,
     },
-
     description: {
         type: Object,
         required: true,
     },
-
+    quantity: {
+        type: Number,
+        default: 0
+    },
     category: {
         type: String,
         required: true
     },
-
     ownedBy: {
         type: ObjectId,
         ref: Seller,

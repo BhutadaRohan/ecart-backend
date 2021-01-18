@@ -20,6 +20,12 @@ router
                     products: products
                 })
             })
+            .catch(() => {
+                res.json({
+                    status: 'failed',
+                    message: 'Something went wrong',
+                })
+            })
     })
 
 // add new product to the products collection and also to the seller 

@@ -2,7 +2,8 @@ const express = require("express")
 const validator = require("validator")
 const bcrypt = require('bcryptjs')
 
-const User = require("../../Models/userModel")
+const User = require("../../Models/userModel");
+const Cart = require("../../Models/cartModel");
 
 const router = express.Router();
 
@@ -54,6 +55,11 @@ router
                             password: hashPassword
                         })
                         .then((user) => {
+
+                            Cart.create({ 'ownedBy': user._id })
+                                .then(() => console.log('Cart created for user'))
+                                .catch((err) => console.log(err))
+
                             return res
                                 .status(201)
                                 .json({

@@ -5,6 +5,7 @@ const userRoutes = require('./Routes/buyerRoutes/authRoutes');
 const sellerRoutes = require('./Routes/sellerRoutes/authRoute');
 const sellerProductRoutes = require('./Routes/sellerRoutes/productRoutes');
 const buyerProductRoutes = require('./Routes/buyerRoutes/productRoutes');
+const buyerCartRoutes = require('./Routes/buyerRoutes/cartRoutes')
 
 // config file used to save db password and port
 dotenv.config({ path: "./config.env" })
@@ -39,7 +40,7 @@ app.get('/', (req, res) => {
     });
 })
 
-app.use('/buyer', userRoutes, buyerProductRoutes)
+app.use('/buyer', userRoutes, buyerProductRoutes, buyerCartRoutes)
 app.use('/seller', sellerRoutes, sellerProductRoutes)
 
 app.listen(PORT, () => {

@@ -10,12 +10,12 @@ router
     .get(async (req, res) => {
         const userId = req.params.id
         Cart.find({ ownedBy: userId }, { __v: 0 })
-            .populate('items.productId')
+            .populate('items.product')
             .then(cart => {
                 res.json({
                     status: 'success',
                     message: 'Cart items successfully fetched',
-                    cart: cart
+                    cart: cart[0]
                 })
             })
             .catch(() => {
@@ -31,7 +31,8 @@ router
     .route('/cart/update')
     .post(async (req, res) => {
         const { _id, items } = req.body
-        Cart.findByIdAndUpdate(_id, { items }, { new: true })
+        console.log(_id, items)
+        Cart.findByIdAndUpdate(_id, { items: items }, { new: true })
             .populate('items')
             .then(cart => {
                 res.json({

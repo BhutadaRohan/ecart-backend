@@ -34,7 +34,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.json({
+    res.send({
         status: 'success',
         message: 'msg from the basic route'
     });
